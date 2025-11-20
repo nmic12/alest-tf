@@ -1,0 +1,27 @@
+25
+Aeson Nestor
+Nestor Nausithous
+Aeson Charybdis
+Nausithous Phaedra
+Charybdis Aretus
+Charybdis Alcinous
+Alcinous Hera
+Phaedra Cicones
+Cicones Enipeus
+Enipeus Dodona
+Enipeus Zeus
+Phaedra Elis
+Hera Peiraeus
+Charybdis Phemius
+Dodona Anabesineus
+Nausithous Olympus
+Cicones Amphialus
+Elis Alybas
+Dodona Amphimedon
+Nausithous Tyro
+Amphialus Autonoe
+Nestor Elatreus
+Charybdis Clymenus
+Charybdis Memnon
+Amphialus Taphos
+Alcinous Cicones
