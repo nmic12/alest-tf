@@ -4,6 +4,7 @@
  */
 import java.util.LinkedList;
 
+
 public class GeneralTreeOfString {
 
     // Classe interna Node
@@ -151,9 +152,8 @@ public class GeneralTreeOfString {
      * 
      * @return lista com os elementos da arvore na ordem do caminhamento em largura
      */
-    public LinkedList<String> breathFirstTraversal() { // O(n)
-        // IMPLEMENTE ESTE METODO !!
-        LinkedList<String> lista = new LinkedList<>();
+    public LinkedListOfString breathFirstTraversal() { // MUDANÇA AQUI: retorno
+        LinkedListOfString lista = new LinkedListOfString(); // MUDANÇA AQUI: tipo da lista
         if (root == null)
             return lista; // arvore vazia
 
@@ -358,44 +358,44 @@ public class GeneralTreeOfString {
      */
 
     // Método principal para gerar a saída no formato DOT
-    public void generateDOT() {
-        if (root == null) {
-            System.out.println("Arvore vazia!");
-            return;
-        }
+    // public void generateDOT() {
+    //     if (root == null) {
+    //         System.out.println("Arvore vazia!");
+    //         return;
+    //     }
 
-        System.out.println("digraph g { \n");
-        generateNodesDOT(root);
-        generateConnectionsDOT(root);
-        System.out.println("}\n");
+    //     System.out.println("digraph g { \n");
+    //     generateNodesDOT(root);
+    //     generateConnectionsDOT(root);
+    //     System.out.println("}\n");
 
-    }
+    // }
 
-    // Gera a parte do arquivo DOT que define os nodos
-    private void generateNodesDOT(Node n) {
-        System.out.println("node [shape = circle];\n");
-        // System.out.println("node [style = filled];\n");
+    // // Gera a parte do arquivo DOT que define os nodos
+    // private void generateNodesDOT(Node n) {
+    //     System.out.println("node [shape = circle];\n");
+    //     // System.out.println("node [style = filled];\n");
 
-        LinkedList<String> L = breathFirstTraversal();
+    //     LinkedList<String> L = breathFirstTraversal();
 
-        for (int i = 0; i < L.size(); i++) {
-            // resultado: node1 [label = "1"]
-            System.out.println("node" + L.get(i) + " [label = \"" + L.get(i) + "\"]");
-        }
-    }
+    //     for (int i = 0; i < L.size(); i++) {
+    //         // resultado: node1 [label = "1"]
+    //         System.out.println("node" + L.get(i) + " [label = \"" + L.get(i) + "\"]");
+    //     }
+    // }
 
-    // Gera a parte do arquivo DOT que define as conexoes (arestas)
-    // Método recursivo
-    private void generateConnectionsDOT(Node n) {
-        if (n == null) {
-            return;
-        }
-        for (int i = 0; i < n.getSubtreesSize(); i++) {
-            Node aux = n.getSubtree(i);
-            System.out.println("node" + n.element + " -> node" + aux.element + ";");
-            generateConnectionsDOT(aux); // chamada recursiva para cada filho
-        }
-    }
+    // // Gera a parte do arquivo DOT que define as conexoes (arestas)
+    // // Método recursivo
+    // private void generateConnectionsDOT(Node n) {
+    //     if (n == null) {
+    //         return;
+    //     }
+    //     for (int i = 0; i < n.getSubtreesSize(); i++) {
+    //         Node aux = n.getSubtree(i);
+    //         System.out.println("node" + n.element + " -> node" + aux.element + ";");
+    //         generateConnectionsDOT(aux); // chamada recursiva para cada filho
+    //     }
+    // }
     // Dado dois personagens mitológicos r e s, quem é o ancestral comum mais
     // próximo dos
     // dois?
@@ -408,27 +408,27 @@ public class GeneralTreeOfString {
             return null;
         }
 
-        LinkedList<Node> ancestrais1 = new LinkedList<>();
+        LinkedListOfString ancestrais1 = new LinkedListOfString();
         Node aux = nodo1;
 
         while (aux != null) {
-            ancestrais1.add(aux);
+            ancestrais1.add(aux.element);
             aux = aux.father;
         }
 
-        LinkedList<Node> ancestrais2 = new LinkedList<>();
+        LinkedListOfString ancestrais2 = new LinkedListOfString();
         Node aux2 = nodo2;
 
         while (aux2 != null) {
-            ancestrais2.add(aux2);
+            ancestrais2.add(aux2.element); 
             aux2 = aux2.father;
         }
 
         for (int i = 0; i < ancestrais1.size(); i++) {
-            Node n = ancestrais1.get(i);
+            String elemento = ancestrais1.get(i); 
 
-            if (ancestrais2.contains(n) && n.element != elem1 && n.element != elem2) {
-                return n.element;
+            if (ancestrais2.contains(elemento) && !elemento.equals(elem1) && !elemento.equals(elem2)) {
+                return elemento;
             }
         }
 
@@ -443,9 +443,12 @@ public class GeneralTreeOfString {
 
         int count = 0;
 
-        LinkedList<String> todos = breathFirstTraversal();
+        // Usa LinkedListOfString ao invés de LinkedList
+        LinkedListOfString todos = breathFirstTraversal();
 
-        for (String elem : todos) {
+        // For tradicional com índice ao invés de for-each
+        for (int i = 0; i < todos.size(); i++) {
+            String elem = todos.get(i);
 
             if (level(elem) == alturaElemento) {
                 count++;
@@ -453,7 +456,6 @@ public class GeneralTreeOfString {
         }
 
         return count - 1;
-
     }
 
     public String verificaRelacao(String element1, String element2) {

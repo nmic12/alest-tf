@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class App {
 
-    private static final String NOME_ARQUIVO = "casosTeste//teste00.txt";
+    private static final String NOME_ARQUIVO = "casosTeste//teste05.txt";
 
     public static void main(String[] args) {
 
@@ -53,8 +53,7 @@ public class App {
                 arv.add(descendentes[i], ancestrais[i]);
             }
 
-            //
-            //
+            // Leitura dos nomes para consulta
             String linhaConsulta = br.readLine();
             String[] nomesConsulta = linhaConsulta.split(" ");
             String r = nomesConsulta[0];
@@ -62,46 +61,76 @@ public class App {
 
             // --- Fim da Leitura e Construção ---
 
-            // --- Consultas ---
-            System.out.println("\n--- Árvore Montada. Iniciando Consultas ---");
+            System.out.println("\n=== MEDIÇÃO DE TEMPO DE EXECUÇÃO ===\n");
 
-            System.out.println("\n--- Código DOT para GraphViz ---");
-            arv.generateDOT();
-            System.out.println("--------------------------------\n");
-
-            // Pergunta 1: Ancestral Comum Mais Próximo?
-            // System.out.println("\n1. Ancestral Comum de " + r + " e " + s + ":");
-            String ancestral = arv.ancestralMaisProximo("Artemis", "Castor");
+            // Pergunta 1: Ancestral Comum Mais Próximo
+            long inicio = System.nanoTime();
+            String ancestral = arv.ancestralMaisProximo(r, s);
+            long fim = System.nanoTime();
+            System.out.println("1. ancestralMaisProximo(\"" + r + "\", \"" + s + "\")");
             System.out.println("   Resultado: " + ancestral);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
 
-            // Pergunta 2: Qual é a altura da árvore?
+            // Pergunta 2: Altura da árvore
+            inicio = System.nanoTime();
             int height = arv.height(root);
-            System.out.println("2. Altura da árovre: " + height);
+            fim = System.nanoTime();
+            System.out.println("2. height(\"" + root + "\")");
+            System.out.println("   Resultado: " + height);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
 
-            // Pergunta 3: Quantos personagens não possuem descendentes diretos (folhas)?
+            // Pergunta 3: Número de folhas
+            inicio = System.nanoTime();
             int leafs = arv.countLeaves();
-            System.out.println("2. Numero de folhas: " + leafs);
+            fim = System.nanoTime();
+            System.out.println("3. countLeaves()");
+            System.out.println("   Resultado: " + leafs);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
 
-            // Pergunta 4: Quantos personagens estão abaixo de um dado personagem t?
+            // Pergunta 4: Personagens abaixo de um nodo
+            inicio = System.nanoTime();
             int numNodosAbaixo = arv.countNodes("Crete");
-            System.out.println("Número de personagens abaixo de t: " + numNodosAbaixo);
+            fim = System.nanoTime();
+            System.out.println("4. countNodes(\"Crete\")");
+            System.out.println("   Resultado: " + numNodosAbaixo);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
 
-            // Pergunta 5: Quais personagens estão no mesmo nível que t?
+            // Pergunta 5: Personagens no mesmo nível
+            inicio = System.nanoTime();
             int numNodosMesmoNivel = arv.countMesmoNivel("Melantho");
-            System.out.println("Número de personagens no mesmo nivel de t: " + numNodosMesmoNivel);
+            fim = System.nanoTime();
+            System.out.println("5. countMesmoNivel(\"Melantho\")");
+            System.out.println("   Resultado: " + numNodosMesmoNivel);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
 
-            // Pergunta 6: O personagem t é ancestral ou descendente de u?
-            System.out.println(arv.verificaRelacao("Diomede", "Diomede"));
+            // Pergunta 6: Relação entre personagens
+            inicio = System.nanoTime();
+            String relacao = arv.verificaRelacao("Diomede", "Artemis");
+            fim = System.nanoTime();
+            System.out.println("6. verificaRelacao(\"Diomede\", \"Artemis\")");
+            System.out.println("   Resultado: " + relacao);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
 
-            // Pergunta 7: Qual o tamanho do caminho mais longo formado apenas por nomes que iniciam com vogais?
-            System.out.println(arv.caminhoVogais());
+            // Pergunta 7: Caminho mais longo com vogais
+            inicio = System.nanoTime();
+            int caminhoVogais = arv.caminhoVogais();
+            fim = System.nanoTime();
+            System.out.println("7. caminhoVogais()");
+            System.out.println("   Resultado: " + caminhoVogais);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
 
-            // Pergunta 8: Qual o tamanho do caminho mais longo formado apenas por nomes que iniciam com consoantes?
-            System.out.println(arv.caminhoConsoantes());
+            // Pergunta 8: Caminho mais longo com consoantes
+            inicio = System.nanoTime();
+            int caminhoConsoantes = arv.caminhoConsoantes();
+            fim = System.nanoTime();
+            System.out.println("8. caminhoConsoantes()");
+            System.out.println("   Resultado: " + caminhoConsoantes);
+            System.out.println("   Tempo: " + (fim - inicio) / 1000000.0 + " ms\n");
+
+            System.out.println("=== FIM DAS MEDIÇÕES ===");
 
         } catch (IOException e) {
-            // Mensagem de erro mais clara
-            System.out.println("\n Não foi possível ler o arquivo '" + NOME_ARQUIVO + "'.");
+            System.out.println("\nNão foi possível ler o arquivo '" + NOME_ARQUIVO + "'.");
         }
     }
 }
